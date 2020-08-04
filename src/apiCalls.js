@@ -22,3 +22,18 @@ export const postUrl = async (givenUrl, givenTitle) => {
 		throw new Error(response.statusText);
 	}
 }
+
+export const deleteUrl = async (givenID) => {
+	const request = {
+		method: 'DELETE',
+		headers: { "Content-Type": "application/json" }
+	}
+	
+	const response = await fetch(`http://localhost:3001/api/v1/urls/${givenID}`, request);
+
+	if (response.ok) {
+		return response;
+	} else {
+		throw new Error(response.statusText);
+	}
+}

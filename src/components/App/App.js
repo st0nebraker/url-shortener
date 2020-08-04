@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getUrls, postUrl } from '../../apiCalls';
+import { getUrls, postUrl, deleteUrl } from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
@@ -15,16 +15,32 @@ export class App extends Component {
   componentDidMount = async () => {
 		try {
 			const data = await getUrls();
-			this.setState({ urls: [...data.urls] });
+			if (data.urls.length > 0) {
+				this.setState({ urls: [...data.urls] });
+			}
 		} catch (error) {
 			console.log(error);
 		}
 	}
 	
-	submitUrl = async(givenUrl, givenTitle) => {
+	submitUrl = async (givenUrl, givenTitle) => {
 		try {
 			const data = await postUrl(givenUrl, givenTitle);
-			this.setState({ urls: [...this.state.urls, data] });
+			if (this.state.urls.length > 0) {
+				this.setState({ urls: [...this.state.urls, data] });
+			} else {
+				this.setState({ urls: [data] });
+			}
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
+	deleteUrl = async (givenID) => {
+		try {
+			await deleteUrl(givenID);
+			const data = await getUrls();
+			this.setState({ urls: [...data.urls] });
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -38,7 +54,7 @@ export class App extends Component {
           <UrlForm submitUrl={this.submitUrl} />
         </header>
 
-        <UrlContainer urls={this.state.urls}/>
+        <UrlContainer urls={this.state.urls} deleteUrl={this.deleteUrl} />
       </main>
     );
   }
