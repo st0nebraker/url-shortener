@@ -3,5 +3,6 @@
   display: inline-block;
   margin: 10px;
   padding: 5px;
-  background-color: #FFF;
+	background-color: #FFF;
+	width: 100%;
 }
