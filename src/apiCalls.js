@@ -3,7 +3,7 @@ export const getUrls = () => {
       .then(response => response.json())
 }
 
-export const postUrl = (givenUrl, givenTitle) => {
+export const postUrl = async (givenUrl, givenTitle) => {
 	const request = {
 		method: 'POST',
 		headers: { "Content-Type": "application/json" },
@@ -13,7 +13,7 @@ export const postUrl = (givenUrl, givenTitle) => {
     })
 	}
 	
-	const response = fetch('http://localhost:3001/api/v1/urls', request);
+	const response = await fetch('http://localhost:3001/api/v1/urls', request);
 
 	if (response.ok) {
 		const data = response.json();

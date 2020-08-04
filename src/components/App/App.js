@@ -15,7 +15,6 @@ export class App extends Component {
   componentDidMount = async () => {
 		try {
 			const data = await getUrls();
-			console.log(data)
 			this.setState({ urls: [...data.urls] });
 		} catch (error) {
 			console.log(error);
@@ -25,8 +24,7 @@ export class App extends Component {
 	submitUrl = async(givenUrl, givenTitle) => {
 		try {
 			const data = await postUrl(givenUrl, givenTitle);
-			console.log(data)
-			this.setState({ urls: [...data.urls, ...data] });
+			this.setState({ urls: [...this.state.urls, data] });
 		} catch (error) {
 			console.log(error.message);
 		}
