@@ -39,7 +39,7 @@ describe('UrlForm', () => {
 		expect(urlInput.value).toBe('https://dethpsun.tumblr.com/post/143590787939/mmxvi');
 	});
 
-	it('On submission, the submitUrl function is fired', () => {
+	it('On submission, the submitUrl function should fired', () => {
 		const mockSubmit = jest.fn();
 		const { getByText } = render(
 			<UrlForm 
@@ -49,7 +49,7 @@ describe('UrlForm', () => {
 
     const button = getByText('Shorten Please!');
 
-		fireEvent.click(button)
+		fireEvent.click(button);
 
 		expect(mockSubmit).toHaveBeenCalled();
 	});
